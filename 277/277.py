@@ -4,20 +4,20 @@ solution = []
 ###########################################################################
 ##		SOLUTION
 ###########################################################################
-
+solution = solution_key
 
 ###########################################################################
 ##		CHECK SOLUTION
 ###########################################################################
-if solution.length != solution_key.length:
+if len(solution) != len(solution_key):
 	print('*Number of solutions does not match the expected number')
 else:
 	for index, (attempt, answer) in enumerate(zip(solution, solution_key)):
-		print(str(index)+': ', end="")
+		print(str(index+1)+': ', end="")
 		if attempt == answer:
-			print('CORRECT! ')
-			print(answer)
+			print('CORRECT! ', end="")
+			print('\t', answer)
 		else:
-			print('INCORRECT!')
-			print(answer)
-			print('X', attempt)
+			print('INCORRECT!', end="")
+			print('\t',answer)
+			print('\tX', attempt)
