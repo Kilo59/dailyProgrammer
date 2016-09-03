@@ -15,9 +15,9 @@ else:
 	for index, (attempt, answer) in enumerate(zip(solution, solution_key)):
 		print(str(index+1)+': ', end="")
 		if attempt == answer:
-			print('CORRECT! ', end="")
+			print('CORRECT!', end="")
 			print('\t', answer)
 		else:
 			print('INCORRECT!', end="")
 			print('\t',answer)
-			print('\tX', attempt)
+			print('\t\tX', attempt)
