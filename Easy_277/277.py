@@ -11,17 +11,35 @@ solution = []
 ###########################################################################
 ##		SOLUTION
 ###########################################################################
-#solution = solution_key
-
-#split values, convert to ints
+#1. Split values, convert to ints
 split_values = []
 for index, i in enumerate(input1):
-        #split values, store in 2 item list
+	#split values, store in 2 item list
 	split_values.append(input1[index].split())
 	#convert to ints
 	split_values[index][0] = int(split_values[index][0])
 	split_values[index][1] = int(split_values[index][1])
 
+#2. Find Greatest Common Factor/Divisor
+def get_factors(number):
+	#use list comprehension
+	return [x for x in range(1, number+1) if number % x == 0]
+#use get_factors to find the GCF
+def greatest_common_factor(a, b):
+	a_factrs = get_factors(a)
+	b_factrs = get_factors(b)
+	common_factors = [x for x in a_factrs if x in b_factrs]
+	#print('GCF', max(common_factors))
+	return max(common_factors)
+
+#3.Simplify Fraction (divide by GFC)
+def simplify_fraction(a, b):
+	gcf = greatest_common_factor(a, b)
+	return str(int(a/gcf))+' '+str(int(b/gcf))
+
+#4.Iterate over values and apply solution (append to solution list)
+for a_set in split_values:
+	solution.append(simplify_fraction(a_set[0], a_set[1]))
 
 ###########################################################################
 ##		CHECK SOLUTION
