@@ -12,68 +12,82 @@ input1 = [      '\"wisdom\" ? \"mid sow\"',\
 		'\"Astronomers\" ? \"Moon starer\"',\
 		'\"Vacation Times\" ? \"I\'m Not as Active\"',\
 		'\"Dormitory\" ? \"Dirty Rooms\"']
-solution = []
-
 ###########################################################################
 ##		SOLUTION
 ###########################################################################
 class anagram_pair(object):
 
-#one argument
-#split line function
-	def __init__(self, sentence, anagram_target, anagram_bool=None):
-		self.sentence = sentence
-		self.anagram_target = anagram_target
-		self.anagram_bool = anagram_bool
+	def __init__(self, string_input, sentence=None, anagram_target=None, anagram_bool=None):
+		self.string_input = string_input
+		self.sentence = None
+		self.anagram_target = None
+		self.anagram_bool = None
+		self.parse_input()
+
 
 #override string method of object
 	def __str__(self):
 		if self.anagram_bool == False:
-			return self.sentence + ' is NOT an anagrame of ' + self.anagram_target
+			return self.sentence + ' is NOT an anagram of ' + self.anagram_target
 		elif self.anagram_bool == True:
-			return self.sentence + ' is an anagrame of ' + self.anagram_target
+			return self.sentence + ' is an anagram of ' + self.anagram_target
 		else:
 			return self.sentence + ' ? ' + self.anagram_target
 
+
+	def parse_input(self):
+		split_values = [x.strip() for x in self.string_input.split(" ? ")]
+		self.sentence = split_values[0]
+		self.anagram_target = split_values[1]
+		return
+
+
 	def anagram_check(self):
-		flags = 0
-		ignore = ' \''
-
-		for character in self.sentence:
-			if character not in self.anagram_target:
-				flags += 1
-
-		for character in self.anagram_target:
-			if character not in ignore:
-				if character not in self.sentence:
-					print('Flag: ', character)
-					flags += 1
-
-		if flags > 0:
-			self.anagram_bool = False
-		else:
+		self.character_check()
+		self.repeat_character_check()
+		self.word_shuffle_check()
+		#if all no checks have failed, assume anagram
+		if self.anagram_bool != False:
 			self.anagram_bool = True
 		return
 
-input2 = []
-input2.append( anagram_pair('\"wisdom\"', '\"mid sow\"') )
-input2.append( anagram_pair('\"seth rogan\"', '\"gathers no\"') )
-input2.append( anagram_pair('\"reddit\"', '\"eat dirt\"') )
-input2.append( anagram_pair('\"schoolmaster\"', '\"the classroom\"') )
-input2.append( anagram_pair('\"astronomers\"', '\"moon starer\"') )
-input2.append( anagram_pair('\"vacation times\"', '\"i\'m not as active\"') )
-input2.append( anagram_pair('\"dormitory\"', '\"dirty rooms\"') )
 
-for index, item in enumerate(input2):
-	print(index + 1, item)
+	def failed_test(self):
+		self.anagram_bool = False
+
+
+	def character_check(self):
+		flags = 0
+		ignore = ' \''
+		for character in self.sentence.lower():
+			if character not in self.anagram_target.lower():
+				flags += 1
+		for character in self.anagram_target.lower():
+			if character not in ignore:
+				if character not in self.sentence.lower():
+					print('Flag: ', character)
+					flags += 1
+		if flags > 0:
+			self.failed_test()
+		return flags
+
+
+	def repeat_character_check(self):
+		pass
+		return
+
+
+	def word_shuffle_check(self):
+		pass
+		return
+#END CLASS DEFINITION
+
+###########################################################################
+##		EXECUTE SOLUTION
+###########################################################################
+for index, item in enumerate(input1):
+	item = anagram_pair(item)
+	print(index+1, item)
 	item.anagram_check()
-	print(index + 1, item)
-	#print(index + 1, item.anagram_bool)
-
-input2[0].anagram_check()
-print(input2[0].anagram_bool)
-###########################################################################
-##		CHECK SOLUTION
-###########################################################################
-for index, anagram_pair in enumerate(input1):
-	print(index + 1, anagram_pair)
+	print(index+1, item)
+	print('-' * (index + 1) )
