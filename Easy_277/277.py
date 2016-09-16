@@ -13,7 +13,7 @@ solution = []
 ###########################################################################
 #1. Split values, convert to ints
 split_values = []
-for index, i in enumerate(input1):
+for index in range(len(input1)):
 	#split values, store in 2 item list
 	split_values.append(input1[index].split())
 	#convert to ints
