@@ -15,70 +15,50 @@ input1 = [      '\"wisdom\" ? \"mid sow\"',\
 ###########################################################################
 ##		SOLUTION
 ###########################################################################
-class anagram_pair(object):
+class anagram_detector(object):
 
-	def __init__(self, string_input, sentence=None, anagram_target=None, anagram_bool=None):
+	def __init__(self, string_input, sentence=None, anagram_target=None, collapsed_candidate=None, collapsed_target=None, anagram_bool=None):
 		self.string_input = string_input
-		self.sentence = None
+		self.anagram_candidate = None
 		self.anagram_target = None
+		self.candidate_char_list = None
+		self.target_char_list = None
 		self.anagram_bool = None
-		self.parse_input()
-
+		#pass characters to ignore
+		self.parse_input(' \'\"')
 
 #override string method of object
 	def __str__(self):
 		if self.anagram_bool == False:
-			return self.sentence + ' is NOT an anagram of ' + self.anagram_target
+			return self.anagram_candidate + ' is NOT an anagram of ' + self.anagram_target
 		elif self.anagram_bool == True:
-			return self.sentence + ' is an anagram of ' + self.anagram_target
+			return self.anagram_candidate + ' is an anagram of ' + self.anagram_target
 		else:
-			return self.sentence + ' ? ' + self.anagram_target
+			return self.anagram_candidate + ' ? ' + self.anagram_target
 
-
-	def parse_input(self):
+#parse input on object instantiation
+	def parse_input(self, ignore):
 		split_values = [x.strip() for x in self.string_input.split(" ? ")]
-		self.sentence = split_values[0]
+		self.anagram_candidate = split_values[0]
 		self.anagram_target = split_values[1]
+		self.candidate_char_list = [x for x in split_values[0].lower() if x not in ignore]
+		self.target_char_list = [x for x in split_values[1].lower() if x not in ignore]
 		return
 
-
 	def anagram_check(self):
-		self.character_check()
-		self.repeat_character_check()
-		self.word_shuffle_check()
+		self.list_length_check()
 		#if all no checks have failed, assume anagram
 		if self.anagram_bool != False:
 			self.anagram_bool = True
 		return
 
+	def list_length_check(self):
+		if len(self.candidate_char_list) != len(self.target_char_list):
+			self.failed_test()
+		return
 
 	def failed_test(self):
 		self.anagram_bool = False
-
-
-	def character_check(self):
-		flags = 0
-		ignore = ' \''
-		for character in self.sentence.lower():
-			if character not in self.anagram_target.lower():
-				flags += 1
-		for character in self.anagram_target.lower():
-			if character not in ignore:
-				if character not in self.sentence.lower():
-					print('Flag: ', character)
-					flags += 1
-		if flags > 0:
-			self.failed_test()
-		return flags
-
-
-	def repeat_character_check(self):
-		pass
-		return
-
-
-	def word_shuffle_check(self):
-		pass
 		return
 #END CLASS DEFINITION
 
@@ -86,7 +66,7 @@ class anagram_pair(object):
 ##		EXECUTE SOLUTION
 ###########################################################################
 for index, item in enumerate(input1):
-	item = anagram_pair(item)
+	item = anagram_detector(item)
 	print(index+1, item)
 	item.anagram_check()
 	print(index+1, item)
