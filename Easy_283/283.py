@@ -27,7 +27,7 @@ class anagram_detector(object):
 		#pass characters to ignore
 		self.parse_input(' \'\"')
 
-#override string method of object
+	#override string method of object
 	def __str__(self):
 		if self.anagram_bool == False:
 			return self.anagram_candidate + ' is NOT an anagram of ' + self.anagram_target
@@ -36,7 +36,7 @@ class anagram_detector(object):
 		else:
 			return self.anagram_candidate + ' ? ' + self.anagram_target
 
-#parse input on object instantiation
+	#parse input on object instantiation
 	def parse_input(self, ignore):
 		split_values = [x.strip() for x in self.string_input.split(" ? ")]
 		self.anagram_candidate = split_values[0]
@@ -52,6 +52,7 @@ class anagram_detector(object):
 			self.anagram_bool = True
 		return
 
+	#compares the lengths of two lists consisting of only lowercase characters of the anagram_target and anagram_candidate. If lengths are different, the pair is not an anagram and the test fails.
 	def list_length_check(self):
 		if len(self.candidate_char_list) != len(self.target_char_list):
 			self.failed_test()
