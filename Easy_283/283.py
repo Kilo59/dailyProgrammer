@@ -17,7 +17,7 @@ input1 = [      '\"wisdom\" ? \"mid sow\"',\
 ###########################################################################
 class anagram_detector(object):
 
-	def __init__(self, string_input, sentence=None, anagram_target=None, collapsed_candidate=None, collapsed_target=None, anagram_bool=None):
+	def __init__(self, string_input):
 		self.string_input = string_input
 		self.anagram_candidate = None
 		self.anagram_target = None
