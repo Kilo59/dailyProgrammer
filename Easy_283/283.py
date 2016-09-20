@@ -17,7 +17,7 @@ input1 = [      '\"wisdom\" ? \"mid sow\"',\
 ###########################################################################
 class anagram_detector(object):
 
-	def __init__(self, string_input, sentence=None, anagram_target=None, collapsed_candidate=None, collapsed_target=None, anagram_bool=None):
+	def __init__(self, string_input):
 		self.string_input = string_input
 		self.anagram_candidate = None
 		self.anagram_target = None
@@ -27,7 +27,7 @@ class anagram_detector(object):
 		#pass characters to ignore
 		self.parse_input(' \'\"')
 
-#override string method of object
+	#override string method of object
 	def __str__(self):
 		if self.anagram_bool == False:
 			return self.anagram_candidate + ' is NOT an anagram of ' + self.anagram_target
@@ -36,7 +36,7 @@ class anagram_detector(object):
 		else:
 			return self.anagram_candidate + ' ? ' + self.anagram_target
 
-#parse input on object instantiation
+	#parse input on object instantiation
 	def parse_input(self, ignore):
 		split_values = [x.strip() for x in self.string_input.split(" ? ")]
 		self.anagram_candidate = split_values[0]
@@ -46,14 +46,15 @@ class anagram_detector(object):
 		return
 
 	def anagram_check(self):
-		self.list_length_check()
-		#if all no checks have failed, assume anagram
+		self.char_check()
+		#if no checks have failed, assume anagram
 		if self.anagram_bool != False:
 			self.anagram_bool = True
 		return
 
-	def list_length_check(self):
-		if len(self.candidate_char_list) != len(self.target_char_list):
+	#sort character lists and compare them. If lists are not equal the pair is not an anagram.
+	def char_check(self):
+		if sorted(self.candidate_char_list) != sorted(self.target_char_list):
 			self.failed_test()
 		return
 
