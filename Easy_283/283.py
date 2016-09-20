@@ -46,17 +46,10 @@ class anagram_detector(object):
 		return
 
 	def anagram_check(self):
-		self.list_length_check()
 		self.char_check()
 		#if no checks have failed, assume anagram
 		if self.anagram_bool != False:
 			self.anagram_bool = True
-		return
-
-	#compares the lengths of two lists consisting of only lowercase characters of the anagram_target and anagram_candidate. If lengths are different, the pair is not an anagram and the test fails.
-	def list_length_check(self):
-		if len(self.candidate_char_list) != len(self.target_char_list):
-			self.failed_test()
 		return
 
 	#sort character lists and compare them. If lists are not equal the pair is not an anagram.
